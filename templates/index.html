@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Docker App</title>
+</head>
+<body>
+    <form action="/run_commands" method="POST">
+        <label for="github_link">GitHub Link:</label>
+        <input type="text" id="github_link" name="github_link" required><br><br>
+        <label for="app_name">App Name:</label>
+        <input type="text" id="app_name" name="app_name" required><br><br>
+        <input type="submit" value="Run Commands">
+    </form>
+
+    <div id="log-container">
+        <h2>Command Logs:</h2>
+        <pre id="log"></pre>
+    </div>
+
+    <script>
+        function updateLog() {
+            fetch('/run_commands', {
+                method: 'POST',
+                body: new FormData(document.querySelector('form')),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const logElement = document.getElementById('log');
+                logElement.textContent = data.output.join('\n');
+            });
+        }
+
+        // Periodically update the log
+        setInterval(updateLog, 1000);  // Adjust the interval as needed
+    </script>
+</body>
+</html>
