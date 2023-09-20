@@ -20,7 +20,7 @@ COPY . /app
 EXPOSE 8080
 
 # Install any Python dependencies (if needed)
-# RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Define the command to start your Flask app
 CMD ["python", "app.py"]
